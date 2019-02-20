@@ -2,7 +2,12 @@ otu_table_for_heatmap <- read.table("./data/heatmap/otu_table_closed_even8000_fi
 heatmap_taxonomic_information <- read.table("./data/heatmap/used_otu_taxonomic_information2.txt",header=T,row.names=1, dec=".", sep="\t",check.names=T)
 family_relative_abundance <- read.table("./data/heatmap/L6_genus_filter_fullname.txt",header=T,row.names=1, dec=".", sep="\t",check.names=T)
 family_relative_abundance <- family_relative_abundance[,-ncol(family_relative_abundance)]
+ce <- noise.removal(family_relative_abundance,1)
 
-#filter the abundance >0.2% family
-family_relative_abundance <- family_relative_abundance[-1,]
-family_r
+family_relative_abundance$sum <- apply(family_relative_abundance,1,sum)
+family_relative_abundance$family <- rownames(family_relative_abundance)
+family_relative_abundance <-  arrange(family_relative_abundance,as.numeric(sum))
+family_list <- as.data.frame(family_relative_abundance$family)
+write.table(family_list,"./family_list",sep="\t",row.names = FALSE,quote=F)
+##unclassified calculation and transformed to relative abundance
+rows <- nrow(otu_table_for_heatmap)
