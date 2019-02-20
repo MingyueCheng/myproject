@@ -1,0 +1,8 @@
+otu_table_for_heatmap <- read.table("./data/heatmap/otu_table_closed_even8000_filter_subject_20_genus.txt",header=T,row.names=1, dec=".", sep="\t",check.names=T)
+heatmap_taxonomic_information <- read.table("./data/heatmap/used_otu_taxonomic_information2.txt",header=T,row.names=1, dec=".", sep="\t",check.names=T)
+family_relative_abundance <- read.table("./data/heatmap/L6_genus_filter_fullname.txt",header=T,row.names=1, dec=".", sep="\t",check.names=T)
+family_relative_abundance <- family_relative_abundance[,-ncol(family_relative_abundance)]
+
+#filter the abundance >0.2% family
+family_relative_abundance <- family_relative_abundance[-1,]
+family_r
